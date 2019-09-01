@@ -1,0 +1,12 @@
+# LaTeX files§
+*.aux
+*.fls
+*.fdb_latexmk
+*.log
+
+# Input (containing private data)
+*.csv
+# Intermediate file (containing private data)
+attendees.tex
+# Output (containing private data)
+*.pdf

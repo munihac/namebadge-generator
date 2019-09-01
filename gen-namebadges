@@ -1,0 +1,29 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i python3 -p "texlive.combine { inherit (texlive) scheme-full; }"
+
+import csv
+import subprocess
+
+def generate_tex_from_csv():
+  with open('attendees.csv') as csvfile:
+    attendees_reader = csv.DictReader(csvfile)
+    attendees = list(attendees_reader)
+  attendees_sorted = sorted(attendees, key=lambda attendee: attendee['Last Name'])
+  with open('attendees.tex', 'w') as tex_file:
+    for attendee in attendees_sorted:
+      is_tng = attendee['Ticket Type'] == 'TNG' or attendee['Email'].endswith('@tngtech.com')
+      print_dict = {
+        'firstName': attendee['First Name'],
+        'lastName': attendee['Last Name'],
+        'affiliation': 'TNG Technology Consulting' if is_tng else attendee['Company']
+      }
+      tex_file.write("\\confpin{{{firstName} {lastName}}}{{{affiliation}}}\n".format(**print_dict))
+
+def build_tex():
+  subprocess.run(['pdflatex', 'namebadges']).check_returncode()
+
+def main():
+  generate_tex_from_csv()
+  build_tex()
+
+main()
