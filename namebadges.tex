@@ -1,16 +1,20 @@
-\documentclass[a4paper,10pt]{letter}
+\documentclass[a4paper]{article}
 
 \usepackage[utf8]{inputenc}
-\usepackage[freepin,crossmark]{ticket}
+\usepackage[freepin,boxed]{ticket}
 \usepackage{graphicx}
+\usepackage{geometry}
+\geometry{a4paper, left=0cm, top=0cm, bottom=0cm}
 
 \unitlength=1mm
+\hoffset=1cm
+\voffset=2.55cm % from the bottom!
 \ticketNumbers{2}{4}
-\ticketSize{86}{55} % in mm
-\ticketDistance{0}{0} % in mm
+\ticketSize{90}{60} % in mm
+\ticketDistance{10}{0} % in mm
 
 \renewcommand{\ticketdefault}{%
-  \put(43,  5){\makebox[0mm]{\includegraphics[width=50mm]{logo-2019}}}
+  \put(45, 5){\makebox[0mm]{\includegraphics[width=50mm]{logo-2019}}}
 }
 
 \newcommand*{\minwidthbox}[2]{%
@@ -18,9 +22,9 @@
 }
 
 \newcommand{\confpin}[2]{\ticket{%
-    \put(8,36){\parbox{70mm}{%
-      \resizebox{70mm}{!}{\minwidthbox{30mm}{\bfseries #1}}\\[5mm]%
-      \resizebox{70mm}{!}{\minwidthbox{40mm}{\bfseries #2}}%
+    \put(9,36){\parbox{72mm}{%
+      \resizebox{72mm}{!}{\minwidthbox{30mm}{\bfseries #1}}\\[5mm]%
+      \resizebox{72mm}{!}{\minwidthbox{40mm}{\bfseries #2}}%
     }}%
 }}
 
