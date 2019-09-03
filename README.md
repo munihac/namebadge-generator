@@ -1,6 +1,7 @@
 # Namebadges Generator for MuniHac 2019
 
-1. Download the list of attendees from [EventBrite](https://eventbrite.com/).
+0. Clone project, cd into project directory.
+1. Download the list of attendees from [EventBrite](https://eventbrite.com/), put it into project directory as `attendees.csv`.
 2. Execute `gen-namebadges`. On NixOS, simply run
    ```bash
    $ ./gen-namebadges
