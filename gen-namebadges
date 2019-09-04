@@ -3,13 +3,14 @@
 
 import csv
 import subprocess
+import os
 
-def generate_tex_from_csv():
-  with open('attendees.csv') as csvfile:
+def generate_tex_from_csv(input_csv, output_tex):
+  with open(input_csv) as csvfile:
     attendees_reader = csv.DictReader(csvfile)
     attendees = list(attendees_reader)
   attendees_sorted = sorted(attendees, key=lambda attendee: attendee['Last Name'])
-  with open('attendees.tex', 'w') as tex_file:
+  with open(output_tex, 'w') as tex_file:
     for attendee in attendees_sorted:
       is_tng = attendee['Ticket Type'] == 'TNG' or attendee['Email'].endswith('@tngtech.com')
       print_dict = {
@@ -19,11 +20,15 @@ def generate_tex_from_csv():
       }
       tex_file.write("\\confpin{{{firstName} {lastName}}}{{{affiliation}}}\n".format(**print_dict))
 
-def build_tex():
-  subprocess.run(['pdflatex', 'namebadges']).check_returncode()
+def build_tex(name):
+  subprocess.run(['pdflatex', name]).check_returncode()
 
 def main():
-  generate_tex_from_csv()
-  build_tex()
+  if os.path.isfile('attendees.csv'):
+    generate_tex_from_csv('attendees.csv','attendees.tex')
+    build_tex('namebadges')
+  if os.path.isfile('orga.csv'):
+    generate_tex_from_csv('orga.csv','orga.tex')
+    build_tex('namebadges-orga')
 
 main()
